@@ -11,6 +11,8 @@ exports.syncRepo = async repo => {
     await generateFiles(repo);
 
     const isClean = await git.isWorkingTreeClean();
+    console.log(isClean);
+    process.exit(0);
     if (isClean) return Promise.resolve();
 
     await git.commitAllChangesAndPush();
@@ -22,3 +24,5 @@ exports.syncRepo = async repo => {
     return Promise.reject(err);
   }
 };
+
+exports.syncRepo("hsds-core-ui");
