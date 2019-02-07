@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const execa = require("execa");
-const { REPOS, log, isMasterBranch } = require("./utils");
+const { syncRepo } = require("./syncRepo");
+const { REPOS, log, isMasterBranch, isDataSecure } = require("./utils");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,20 +19,15 @@ REPOS.forEach(repo => {
   app.post(`/${repo}`, (req, res) => {
     const data = req.body;
 
-    // Only wiki sync on master branch
-    if (isMasterBranch(data)) {
-      execa("sh", ["./scripts/sync-wiki.sh"])
-        .stdout.pipe(process.stdout)
-        .then(() => {
-          log("Successfully synced ${repo}.wiki!");
-        })
-        .catch(err => {
-          log("Failed to sync ${repo}.wiki");
-          log(err);
-        });
+    if (!isDataSecure(req)) {
+      return res.sendStatus(404);
     }
 
-    res.sendStatus(200);
+    if (!isMasterBranch(data)) {
+      return res.sendStatus(200);
+    }
+
+    syncRepo(repo);
   });
 });
 
