@@ -3,6 +3,8 @@ const path = require("path");
 const glob = require("fast-glob");
 const { log } = require("./utils");
 
+const githubUser = process.env.GITHUB_USER || "helpscout";
+
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
 
@@ -65,7 +67,7 @@ const getPagesFromFiles = files => {
 };
 
 const getImagePath = repo => file => {
-  const basePath = "https://github.com/helpscout/";
+  const basePath = `https://github.com/${githubUser}/`;
   const { fileDest } = file;
 
   return `${basePath}${repo}/blob/master${fileDest}`;
