@@ -28,6 +28,8 @@ REPOS.forEach(repo => {
     }
 
     syncRepo(repo);
+
+    return res.sendStatus(200);
   });
 });
 
