@@ -4,6 +4,8 @@ const { getTimestamp, log } = require("./utils");
 
 exports.syncRepo = async repo => {
   try {
+    log(`Syncing ${repo}...`);
+
     const wikiRepo = `${repo}.wiki`;
 
     // Get the latest from Repo
