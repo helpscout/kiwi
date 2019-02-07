@@ -121,5 +121,3 @@ const writeMarkdownToFile = repo => async (fileName, content) => {
     return Promise.reject(err);
   }
 };
-
-exports.generateFiles("hsds-core-ui");
