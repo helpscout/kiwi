@@ -8,18 +8,13 @@ const USAGE_DIR = "_Reference";
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
 
-  const wikiPath = getRepoWikiPath(repo);
-
   const mockupFiles = (await getMockupFiles(repo)).map(remapFileToProps(repo));
-  // const remappedFiles = mockupFiles.map()
 
   log(`Generating markdown files for ${repo}...`);
   const template = generateTemplateFromFiles(repo)(mockupFiles);
   await writeTemplateToFile(repo)(template);
 
   log(`Created ${repo} wiki files!`);
-
-  // const files = await glob();
 };
 
 const getRepoPath = repo => path.resolve(__dirname, "../", repo);

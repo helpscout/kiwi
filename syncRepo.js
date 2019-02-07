@@ -1,13 +1,13 @@
 const execa = require("execa");
 const { generateFiles } = require("./generateFiles");
-const { getTimestamp } = require("./utils");
+const { getTimestamp, log } = require("./utils");
 
 exports.syncRepo = async repo => {
   try {
     const wikiRepo = `${repo}.wiki`;
+
     await execa.shell(`
       cd ../${wikiRepo}
-      pwd
       git clean -f -d
       git checkout .
       git pull
@@ -15,12 +15,15 @@ exports.syncRepo = async repo => {
 
     await generateFiles(repo);
 
-    const isClean = await execa.shell(`
+    const { stdout: hasChanges } = await execa.shell(`
       cd ../${wikiRepo}
       git status --porcelain
     `);
 
-    if (isClean) return Promise.resolve();
+    if (!hasChanges) {
+      log(`No changes on ${wikiRepo}`);
+      return Promise.resolve();
+    }
 
     await execa.shell(`
       cd ../${wikiRepo}
@@ -29,10 +32,10 @@ exports.syncRepo = async repo => {
       git push
     `);
 
+    log(`Pushed updates to ${wikiRepo}`);
+
     return Promise.resolve();
   } catch (err) {
     return Promise.reject(err);
   }
 };
-
-exports.syncRepo("hsds-core-ui");
