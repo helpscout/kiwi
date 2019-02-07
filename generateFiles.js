@@ -1,18 +1,17 @@
 const fs = require("fs");
 const path = require("path");
-const glob = require("glob");
+const glob = require("fast-glob");
 const { log } = require("./utils");
-
-const USAGE_DIR = "_Reference";
 
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
 
   const mockupFiles = (await getMockupFiles(repo)).map(remapFileToProps(repo));
+  const pages = getPagesFromFiles(mockupFiles);
 
   log(`Generating markdown files for ${repo}...`);
-  const template = generateTemplateFromFiles(repo)(mockupFiles);
-  await writeTemplateToFile(repo)(template);
+
+  await generateMarkdownFromPages(repo)(pages);
 
   log(`Created ${repo} wiki files!`);
 };
@@ -20,27 +19,50 @@ exports.generateFiles = async (repo = "") => {
 const getRepoPath = repo => path.resolve(__dirname, "../", repo);
 const getRepoWikiPath = repo => path.resolve(__dirname, "../", `${repo}.wiki/`);
 
-const getMockupPath = repoPath => path.resolve(repoPath, USAGE_DIR);
+const getMockupFilePaths = repoPath => [
+  path.join(repoPath, "_Usage", "/**/*.png"),
+  path.join(repoPath, "_References", "/**/*.png"),
+  path.join(repoPath, "_Reference", "/**/*.png")
+];
 
 const getMockupFiles = async repo => {
   const repoPath = getRepoPath(repo);
-  const mockupPath = getMockupPath(repoPath);
-  const mockupFilePath = path.join(mockupPath, "/**/*.png");
+  const mockupFilePaths = getMockupFilePaths(repoPath);
 
-  return (await glob.sync(mockupFilePath)) || [];
+  return (await glob.sync(mockupFilePaths)) || [];
 };
 
 const remapFileToProps = repo => file => {
   const fileDest = file.split(repo)[1];
   const fileName = path.basename(file);
+  const page = path
+    .dirname(file)
+    .split("/")
+    .pop();
   const name = fileName.replace(".png", "").trim();
 
   return {
     localPath: file,
     name,
+    page,
     fileName,
     fileDest
   };
+};
+
+const getPagesFromFiles = files => {
+  const pages = {};
+
+  files.forEach(file => {
+    const pageName = file.page;
+    console.log(pageName);
+    if (!pages[pageName]) {
+      pages[pageName] = [];
+    }
+    pages[pageName].push(file);
+  });
+
+  return pages;
 };
 
 const getImagePath = repo => file => {
@@ -54,11 +76,11 @@ const encodeImagePath = imagePath => {
   return imagePath.replace(/\ /g, "%20");
 };
 
-const generateTemplateFromFiles = (repo, page) => files => {
+const generateTemplateFromFiles = repo => files => {
   let template = "";
 
   files.forEach(file => {
-    const { name, fileName } = file;
+    const { name } = file;
     const imagePath = getImagePath(repo)(file);
     const encodedImagePath = encodeImagePath(imagePath);
 
@@ -69,14 +91,36 @@ const generateTemplateFromFiles = (repo, page) => files => {
   return template.trim();
 };
 
-const writeTemplateToFile = repo => async template => {
-  const wikiPath = getRepoWikiPath(repo);
-  const destPath = path.join(wikiPath, "Home.md");
-
+const generateMarkdownFromPages = repo => async pages => {
   try {
-    fs.writeFileSync(destPath, template);
+    const writeTasks = [];
+
+    Object.keys(pages).forEach(key => {
+      const pageFileName = `${key}.md`;
+      const files = pages[key];
+      const markdown = generateTemplateFromFiles(repo)(files);
+
+      writeTasks.push(writeMarkdownToFile(repo)(pageFileName, markdown));
+    });
+
+    await Promise.all(writeTasks);
+
     return Promise.resolve();
   } catch (err) {
     return Promise.reject(err);
   }
 };
+
+const writeMarkdownToFile = repo => async (fileName, content) => {
+  const wikiPath = getRepoWikiPath(repo);
+  const destPath = path.join(wikiPath, fileName);
+
+  try {
+    fs.writeFileSync(destPath, content);
+    return Promise.resolve();
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+exports.generateFiles("hsds-core-ui");
