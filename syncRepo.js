@@ -6,6 +6,15 @@ exports.syncRepo = async repo => {
   try {
     const wikiRepo = `${repo}.wiki`;
 
+    // Get the latest from Repo
+    await execa.shell(`
+      cd ../${repo}
+      git clean -f -d
+      git checkout .
+      git pull
+    `);
+
+    // Get the latest from Repo.wiki
     await execa.shell(`
       cd ../${wikiRepo}
       git clean -f -d
