@@ -1,23 +1,33 @@
 const execa = require("execa");
-const git = require("./git");
 const { generateFiles } = require("./generateFiles");
+const { getTimestamp } = require("./utils");
 
 exports.syncRepo = async repo => {
   try {
-    await execa.shell(`cd ../${repo}`);
-
-    await git.pullLatest();
+    const wikiRepo = `${repo}.wiki`;
+    await execa.shell(`
+      cd ../${wikiRepo}
+      pwd
+      git clean -f -d
+      git checkout .
+      git pull
+    `);
 
     await generateFiles(repo);
 
-    const isClean = await git.isWorkingTreeClean();
-    console.log(isClean);
-    process.exit(0);
+    const isClean = await execa.shell(`
+      cd ../${wikiRepo}
+      git status --porcelain
+    `);
+
     if (isClean) return Promise.resolve();
 
-    await git.commitAllChangesAndPush();
-
-    await execa.shell("cd -");
+    await execa.shell(`
+      cd ../${wikiRepo}
+      git add .
+      git commit -m "Update from Kiwi at ${getTimestamp()}"
+      git push
+    `);
 
     return Promise.resolve();
   } catch (err) {
