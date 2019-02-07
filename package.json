@@ -1,7 +1,8 @@
 {
   "name": "kiwi",
   "version": "0.0.0",
-  "description": "",
+  "description": "Seamless syncing for Design Wikis",
+  "private": true,
   "main": "index.js",
   "scripts": {},
   "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
