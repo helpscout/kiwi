@@ -55,7 +55,6 @@ const getPagesFromFiles = files => {
 
   files.forEach(file => {
     const pageName = file.page;
-    console.log(pageName);
     if (!pages[pageName]) {
       pages[pageName] = [];
     }
