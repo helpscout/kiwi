@@ -85,5 +85,3 @@ const writeTemplateToFile = repo => async template => {
     return Promise.reject(err);
   }
 };
-
-exports.generateFiles("hsds-core-ui");
