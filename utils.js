@@ -21,7 +21,7 @@ exports.isMasterBranch = (data = {}) => {
 };
 
 exports.isDataSecure = response => {
-  const { header, body } = response;
+  const { headers, body } = response;
   const payload = JSON.stringify(body);
 
   const hmac = crypto.createHmac("sha1", secret);
