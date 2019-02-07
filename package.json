@@ -4,7 +4,9 @@
   "description": "Seamless syncing for Design Wikis",
   "private": true,
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js"
+  },
   "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
   "license": "MIT",
   "dependencies": {
