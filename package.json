@@ -1,0 +1,14 @@
+{
+  "name": "kiwi",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "execa": "^1.0.0",
+    "express": "^4.16.4"
+  }
+}
