@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const secret = process.env.KIWI_SECRET || "hsds-secret-lol-buzz";
+const headerKey = "x-hub-signature";
 
 exports.secret = secret;
 exports.REPOS = ["hsds-core-ui"];
