@@ -4,9 +4,13 @@ const execa = require("execa");
 const { REPOS, log, isMasterBranch } = require("./utils");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res("🥝");
+});
 
 /**
  * Create a POST endpoint for every repo.
