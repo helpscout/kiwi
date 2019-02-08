@@ -12,6 +12,7 @@ Add the following global environment variables to your build/CI tool:
 GITHUB_USER = bob_belcher_2019
 GITHUB_REPO = baby-you-can-chive-my-car-burger
 TOKEN = CV9$Xc]6iZVJRJiE*uV6MooXg
+LOCAL_DIR = burger-project
 ```
 
 ##### `GITHUB_USER`
@@ -25,6 +26,10 @@ The Github repository name.
 ##### `TOKEN`
 
 Your super secret [Github personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+
+##### `LOCAL_DIR`
+
+The directory of your (CI) local directory.
 
 ### Github Username/Email
 
