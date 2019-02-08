@@ -1,6 +1,6 @@
 {
   "name": "@helpscout/kiwi",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Seamless syncing for Design Wikis",
   "private": false,
   "publishConfig": {
