@@ -34,6 +34,8 @@ exports.syncRepo = async () => {
 
     await execa.shell(`
       cd ${wikiRepo}
+      pwd
+      git status
       git add .
       git commit -m "Update from Kiwi at ${getTimestamp()}"
       git push https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
