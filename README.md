@@ -47,3 +47,16 @@ Once you have the above ☝️ set up (it's very important!), all you have to do
 ```
 npx @helpscout/kiwi
 ```
+
+## Example
+
+### Netlify
+
+For [Netlify](https://www.netlify.com/), you can set the following [build environment variables](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables):
+
+```
+GITHUB_USER   = bob_belcher_2019
+GITHUB_REPO   = baby-you-can-chive-my-car-burger
+TOKEN         = CV9$Xc]6iZVJRJiE*uV6MooXg
+LOCAL_DIR     = repo
+```
