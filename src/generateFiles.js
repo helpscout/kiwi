@@ -47,14 +47,6 @@ const remapFileToProps = file => {
     .pop();
   const name = fileName.replace(".png", "").trim();
 
-  console.log({
-    localPath: file,
-    name,
-    page,
-    fileName,
-    fileDest
-  });
-
   return {
     localPath: file,
     name,
