@@ -39,11 +39,20 @@ const getMockupFiles = async repo => {
 const remapFileToProps = repo => file => {
   const fileDest = file.split(repo)[1];
   const fileName = path.basename(file);
+
   const page = path
     .dirname(file)
     .split("/")
     .pop();
   const name = fileName.replace(".png", "").trim();
+
+  console.log({
+    localPath: file,
+    name,
+    page,
+    fileName,
+    fileDest
+  });
 
   return {
     localPath: file,
