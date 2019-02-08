@@ -1,9 +1,12 @@
 {
-  "name": "kiwi",
+  "name": "@helpscout/kiwi",
   "version": "0.0.0",
   "description": "Seamless syncing for Design Wikis",
-  "private": true,
-  "main": "index.js",
+  "private": false,
+  "main": "cli.js",
+  "bin": {
+    "kiwi": "cli.js"
+  },
   "scripts": {
     "start": "node index.js"
   },

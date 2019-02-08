@@ -18,8 +18,8 @@ exports.generateFiles = async (repo = "") => {
   log(`Created ${repo} wiki files!`);
 };
 
-const getRepoPath = repo => path.resolve(__dirname, "../", repo);
-const getRepoWikiPath = repo => path.resolve(__dirname, "../", `${repo}.wiki/`);
+const getRepoPath = repo => path.resolve(__dirname, `/${repo}`);
+const getRepoWikiPath = repo => path.resolve(__dirname, `/${repo}.wiki`);
 
 const getMockupFilePaths = repoPath => [
   path.join(repoPath, "_Usage", "/**/*.png"),

@@ -6,28 +6,10 @@ exports.syncRepo = async repo => {
   try {
     log(`Syncing ${repo}...`);
 
-    const wikiRepo = `${repo}.wiki`;
-
-    // Get the latest from Repo
-    await execa.shell(`
-      cd ../${repo}
-      git clean -f -d
-      git checkout .
-      git pull
-    `);
-
-    // Get the latest from Repo.wiki
-    await execa.shell(`
-      cd ../${wikiRepo}
-      git clean -f -d
-      git checkout .
-      git pull
-    `);
-
     await generateFiles(repo);
 
     const { stdout: hasChanges } = await execa.shell(`
-      cd ../${wikiRepo}
+      cd ${wikiRepo}
       git status --porcelain
     `);
 
@@ -37,7 +19,7 @@ exports.syncRepo = async repo => {
     }
 
     await execa.shell(`
-      cd ../${wikiRepo}
+      cd ${wikiRepo}
       git add .
       git commit -m "Update from Kiwi at ${getTimestamp()}"
       git push
