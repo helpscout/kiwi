@@ -68,21 +68,18 @@ npx @helpscout/kiwi
 
 ### Netlify
 
-For [Netlify](https://www.netlify.com/), you can set the following [build environment variables](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables):
-
-```
-GITHUB_USER   = bob_belcher_2019
-GITHUB_REPO   = baby-you-can-chive-my-car-burger
-TOKEN         = CV9$Xc]6iZVJRJiE*uV6MooXg
-LOCAL_DIR     = repo
-```
-
-The command for Netlify to run can be simple `netlify.sh` file in your project:
+For [Netlify](https://www.netlify.com/), you can create a simple `netlify.sh` file (or call it whatever you'd like 😍)
 
 ```
 # Configures the Git name and email for the commits
 git config --global user.email "bob@bobsburgers.com"
 git config --global user.name "bob_belcher_2019"
+
+# Set the environment variables
+export GITHUB_USER=bob_belcher_2019
+export GITHUB_REPO=baby-you-can-chive-my-car-burger
+export TOKEN=CV9$Xc]6iZVJRJiE*uV6MooXg
+export LOCAL_DIR=repo
 
 # Runs Kiwi
 npx @helpscout/kiwi
