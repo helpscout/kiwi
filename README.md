@@ -26,6 +26,15 @@ The Github repository name.
 
 Your super secret [Github personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
 
+### Github Username/Email
+
+Since Kiwi needs to push to a Github wiki, ensure that your environment's Git has been set up with a username and email:
+
+```
+git config --global user.email "bob@bobsburgers.com"
+git config --global user.name "bob_belcher_2019"
+```
+
 ## Usage
 
 Once you have the above ☝️ set up (it's very important!), all you have to do is run:
