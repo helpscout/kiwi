@@ -18,8 +18,8 @@ exports.generateFiles = async (repo = "") => {
   log(`Created ${repo} wiki files!`);
 };
 
-const getRepoPath = repo => path.resolve(__dirname, `/${repo}`);
-const getRepoWikiPath = repo => path.resolve(__dirname, `/${repo}.wiki`);
+const getRepoPath = repo => process.cwd();
+const getRepoWikiPath = repo => `${process.cwd()}.wiki`;
 
 const getMockupFilePaths = repoPath => [
   path.join(repoPath, "_Usage", "/**/*.png"),
@@ -118,6 +118,7 @@ const writeMarkdownToFile = repo => async (fileName, content) => {
 
   try {
     fs.writeFileSync(destPath, content);
+    log(`Generated ${destPath}`);
     return Promise.resolve();
   } catch (err) {
     return Promise.reject(err);

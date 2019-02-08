@@ -1,10 +1,15 @@
+const path = require("path");
 const execa = require("execa");
 const { generateFiles } = require("./generateFiles");
 const { getTimestamp, log } = require("./utils");
 
-exports.syncRepo = async repo => {
+exports.syncRepo = async () => {
+  const repo = path.basename(process.cwd());
+
   try {
     log(`Syncing ${repo}...`);
+
+    const wikiRepo = `${repo}.wiki`;
 
     await generateFiles(repo);
 

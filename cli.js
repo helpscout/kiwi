@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+const { log } = require("./utils");
 const { syncRepo } = require("./syncRepo");
 
-syncRepos();
+log("🥝", "", `Kiwi Started!`);
+
+syncRepo();
