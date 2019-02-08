@@ -90,7 +90,10 @@ const generateTemplateFromFiles = repo => files => {
     const encodedImagePath = encodeImagePath(imagePath)
 
     template += `### ${name}\n`
-    template += `![${name} Usage](${encodedImagePath})\n\n`
+    template += `
+      <a href="${encodedImagePath}" target="_blank">
+        <img src="${encodedImagePath}" title="${name}" alt="${name}" />
+      </a>\n\n`
   })
 
   return template.trim()
