@@ -3,7 +3,8 @@ const path = require("path");
 const glob = require("fast-glob");
 const { log } = require("./utils");
 
-const githubUser = process.env.GITHUB_USER;
+const GITHUB_REPO = process.env.GITHUB_USER;
+const GITHUB_WIKI_REPO = `${GITHUB_REPO}.wiki`;
 
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
@@ -18,8 +19,8 @@ exports.generateFiles = async (repo = "") => {
   log(`Created ${repo} wiki files!`);
 };
 
-const getRepoPath = repo => process.cwd();
-const getRepoWikiPath = repo => `${process.cwd()}.wiki`;
+const getRepoPath = () => process.cwd();
+const getRepoWikiPath = () => GITHUB_WIKI_REPO;
 
 const getMockupFilePaths = repoPath => [
   path.join(repoPath, "_Usage", "/**/*.png"),
