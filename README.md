@@ -10,14 +10,17 @@ Kiwi was specifically designed to handle automatic Wiki deploys for [Help Scout'
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Setup](#setup)
-  - [Github Username/Email](#github-usernameemail)
+  - [CI Variables](#ci-variables)
+  - [Git User](#git-user)
 - [Usage](#usage)
-- [Example](#example)
+- [Examples](#examples)
   - [Netlify](#netlify)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Setup
+
+### CI Variables
 
 Add the following global environment variables to your build/CI tool:
 
@@ -44,7 +47,7 @@ Your super secret [Github personal access token](https://help.github.com/article
 
 The directory of your (CI) local directory.
 
-### Github Username/Email
+### Git User
 
 Since Kiwi needs to push to a Github wiki, ensure that your environment's Git has been set up with a username and email:
 
@@ -61,7 +64,7 @@ Once you have the above ☝️ set up (it's very important!), all you have to do
 npx @helpscout/kiwi
 ```
 
-## Example
+## Examples
 
 ### Netlify
 
@@ -91,5 +94,5 @@ touch public/index.html
 
 With that, you can set up the following:
 
-**Build command**: `sh netlify.sh`
-**Publish directory**: `public`
+- **Build command**: `sh netlify.sh`
+- **Publish directory**: `public`
