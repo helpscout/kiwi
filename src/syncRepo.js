@@ -29,6 +29,11 @@ exports.syncRepo = async () => {
 
     if (!hasChanges) {
       log(`No changes on ${wikiRepo}`);
+      log(`Cleaning ${wikiRepo}...`);
+
+      await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`);
+
+      log("🥝", "", `Kiwi sync complete!`);
       return Promise.resolve();
     }
 
