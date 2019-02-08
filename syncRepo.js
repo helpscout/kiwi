@@ -3,13 +3,22 @@ const execa = require("execa");
 const { generateFiles } = require("./generateFiles");
 const { getTimestamp, log } = require("./utils");
 
+const GITHUB_REPO = process.env.GITHUB_REPO;
+const GITHUB_USER = process.env.GITHUB_USER;
+const TOKEN = process.env.TOKEN;
+
 exports.syncRepo = async () => {
-  const repo = process.env.GITHUB_REPO || path.basename(process.cwd());
+  const repo = GITHUB_REPO || path.basename(process.cwd());
+  const wikiRepo = `${repo}.wiki`;
 
   try {
-    log(`Syncing ${repo}...`);
+    log(`Cloning ${wikiRepo}...`);
 
-    const wikiRepo = `${repo}.wiki`;
+    await execa.shell(`
+      git clone https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
+    `);
+
+    log(`Syncing ${wikiRepo}...`);
 
     await generateFiles(repo);
 
@@ -27,7 +36,7 @@ exports.syncRepo = async () => {
       cd ${wikiRepo}
       git add .
       git commit -m "Update from Kiwi at ${getTimestamp()}"
-      git push
+      git push https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
     `);
 
     log(`Pushed updates to ${wikiRepo}`);
