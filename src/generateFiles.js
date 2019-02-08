@@ -6,11 +6,12 @@ const { log } = require("./utils");
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const GITHUB_WIKI_REPO = `${GITHUB_REPO}.wiki`;
+const LOCAL_DIR = process.env.LOCAL_DIR || GITHUB_REPO;
 
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
 
-  const mockupFiles = (await getMockupFiles(repo)).map(remapFileToProps(repo));
+  const mockupFiles = (await getMockupFiles(repo)).map(remapFileToProps);
   const pages = getPagesFromFiles(mockupFiles);
 
   log(`Generating markdown files for ${repo}...`);
@@ -36,8 +37,8 @@ const getMockupFiles = async repo => {
   return (await glob.sync(mockupFilePaths)) || [];
 };
 
-const remapFileToProps = repo => file => {
-  const fileDest = file.split(repo)[1];
+const remapFileToProps = file => {
+  const fileDest = file.split(LOCAL_DIR)[1];
   const fileName = path.basename(file);
 
   const page = path
