@@ -8,8 +8,7 @@ const GITHUB_USER = process.env.GITHUB_USER;
 const TOKEN = process.env.TOKEN;
 
 exports.syncRepo = async () => {
-  const repo = GITHUB_REPO || path.basename(process.cwd());
-  const wikiRepo = `${repo}.wiki`;
+  const wikiRepo = `${GITHUB_REPO}.wiki`;
 
   try {
     log(`Cloning ${wikiRepo}...`);
@@ -20,7 +19,7 @@ exports.syncRepo = async () => {
 
     log(`Syncing ${wikiRepo}...`);
 
-    await generateFiles(repo);
+    await generateFiles(GITHUB_REPO);
 
     const { stdout: hasChanges } = await execa.shell(`
       cd ${wikiRepo}

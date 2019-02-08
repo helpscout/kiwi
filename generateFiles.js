@@ -3,7 +3,7 @@ const path = require("path");
 const glob = require("fast-glob");
 const { log } = require("./utils");
 
-const githubUser = process.env.GITHUB_USER || "helpscout";
+const githubUser = process.env.GITHUB_USER;
 
 exports.generateFiles = async (repo = "") => {
   if (!repo) return;
