@@ -11,7 +11,7 @@
     "kiwi": "cli.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "release": "np --any-branch --yolo"
   },
   "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
   "license": "MIT",
