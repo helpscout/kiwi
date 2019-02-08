@@ -4,7 +4,7 @@ const { generateFiles } = require("./generateFiles");
 const { getTimestamp, log } = require("./utils");
 
 exports.syncRepo = async () => {
-  const repo = path.basename(process.cwd());
+  const repo = process.env.GITHUB_REPO || path.basename(process.cwd());
 
   try {
     log(`Syncing ${repo}...`);
