@@ -7,6 +7,11 @@
     "access": "public"
   },
   "main": "cli.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "src"
+  ],
   "bin": {
     "kiwi": "cli.js"
   },
@@ -15,6 +20,20 @@
   },
   "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helpscout/kiwi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/helpscout/kiwi/issues"
+  },
+  "keywords": [
+    "github",
+    "wiki",
+    "deploy",
+    "kiwi",
+    "sync"
+  ],
   "dependencies": {
     "execa": "^1.0.0",
     "fast-glob": "^2.2.6"
