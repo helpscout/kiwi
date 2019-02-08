@@ -60,3 +60,23 @@ GITHUB_REPO   = baby-you-can-chive-my-car-burger
 TOKEN         = CV9$Xc]6iZVJRJiE*uV6MooXg
 LOCAL_DIR     = repo
 ```
+
+The command for Netlify to run can be simple `netlify.sh` file in your project:
+
+```
+# Configures the Git name and email for the commits
+git config --global user.email "bob@bobsburgers.com"
+git config --global user.name "bob_belcher_2019"
+
+# Runs Kiwi
+npx @helpscout/kiwi
+
+# Creates an empty page for Netlify to deploy
+mkdir public
+touch public/index.html
+```
+
+With that, you can set up the following:
+
+**Build command**: `sh netlify.sh`
+**Publish directory**: `public`
