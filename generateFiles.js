@@ -3,7 +3,8 @@ const path = require("path");
 const glob = require("fast-glob");
 const { log } = require("./utils");
 
-const GITHUB_REPO = process.env.GITHUB_USER;
+const GITHUB_USER = process.env.GITHUB_USER;
+const GITHUB_REPO = process.env.GITHUB_REPO;
 const GITHUB_WIKI_REPO = `${GITHUB_REPO}.wiki`;
 
 exports.generateFiles = async (repo = "") => {
@@ -68,7 +69,7 @@ const getPagesFromFiles = files => {
 };
 
 const getImagePath = repo => file => {
-  const basePath = `https://github.com/${githubUser}/`;
+  const basePath = `https://github.com/${GITHUB_USER}/`;
   const { fileDest } = file;
 
   return `${basePath}${repo}/blob/master${fileDest}`;
