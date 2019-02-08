@@ -13,7 +13,7 @@ exports.syncRepo = async () => {
   try {
     log(`Cloning ${wikiRepo}...`);
 
-    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki.git`);
+    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`);
     await execa.shell(`
       git clone https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
     `);
