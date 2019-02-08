@@ -16,7 +16,10 @@
     "kiwi": "src/cli.js"
   },
   "scripts": {
-    "release": "np --any-branch --yolo"
+    "precommit": "zero pre-commit",
+    "release": "np --any-branch --yolo",
+    "prettier": "prettier \"src/**/*.{js,ts,tsx}\" --write",
+    "pretty": "npm run prettier"
   },
   "author": "Jon Quach <hello@jonquach.com> (https://jonquach.com)",
   "license": "MIT",
@@ -39,6 +42,7 @@
     "fast-glob": "^2.2.6"
   },
   "devDependencies": {
+    "@helpscout/zero": "^1.0.3",
     "np": "^4.0.2"
   }
 }

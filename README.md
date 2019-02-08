@@ -1,8 +1,21 @@
 # 🥝 Kiwi
 
-> Seamless syncing for Design Wikis
+> Seamless syncing for Design Github Wikis
 
 Kiwi was specifically designed to handle automatic Wiki deploys for [Help Scout's](https://www.helpscout.com/) Design System.
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Setup](#setup)
+  - [Github Username/Email](#github-usernameemail)
+- [Usage](#usage)
+- [Example](#example)
+  - [Netlify](#netlify)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Setup
 

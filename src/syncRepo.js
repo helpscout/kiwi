@@ -1,40 +1,40 @@
-const path = require("path");
-const execa = require("execa");
-const { generateFiles } = require("./generateFiles");
-const { getTimestamp, log } = require("./utils");
+const path = require('path')
+const execa = require('execa')
+const {generateFiles} = require('./generateFiles')
+const {getTimestamp, log} = require('./utils')
 
-const GITHUB_REPO = process.env.GITHUB_REPO;
-const GITHUB_USER = process.env.GITHUB_USER;
-const TOKEN = process.env.TOKEN;
+const GITHUB_REPO = process.env.GITHUB_REPO
+const GITHUB_USER = process.env.GITHUB_USER
+const TOKEN = process.env.TOKEN
 
 exports.syncRepo = async () => {
-  const wikiRepo = `${GITHUB_REPO}.wiki`;
+  const wikiRepo = `${GITHUB_REPO}.wiki`
 
   try {
-    log(`Cloning ${wikiRepo}...`);
+    log(`Cloning ${wikiRepo}...`)
 
-    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`);
+    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`)
     await execa.shell(`
       git clone https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
-    `);
+    `)
 
-    log(`Syncing ${wikiRepo}...`);
+    log(`Syncing ${wikiRepo}...`)
 
-    await generateFiles(GITHUB_REPO);
+    await generateFiles(GITHUB_REPO)
 
-    const { stdout: hasChanges } = await execa.shell(`
+    const {stdout: hasChanges} = await execa.shell(`
       cd ${wikiRepo}
       git status --porcelain
-    `);
+    `)
 
     if (!hasChanges) {
-      log(`No changes on ${wikiRepo}`);
-      log(`Cleaning ${wikiRepo}...`);
+      log(`No changes on ${wikiRepo}`)
+      log(`Cleaning ${wikiRepo}...`)
 
-      await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`);
+      await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`)
 
-      log("🥝", "", `Kiwi sync complete!`);
-      return Promise.resolve();
+      log('🥝', '', `Kiwi sync complete!`)
+      return Promise.resolve()
     }
 
     await execa.shell(`
@@ -42,18 +42,18 @@ exports.syncRepo = async () => {
       git add .
       git commit -m "Update from Kiwi at ${getTimestamp()}"
       git push https://${TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.wiki.git
-    `);
+    `)
 
-    log(`Pushed updates to ${wikiRepo}`);
+    log(`Pushed updates to ${wikiRepo}`)
 
-    log(`Cleaning ${wikiRepo}...`);
+    log(`Cleaning ${wikiRepo}...`)
 
-    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`);
+    await execa.shell(`rm -rf ${GITHUB_REPO}.wiki`)
 
-    log("🥝", "", `Kiwi sync complete!`);
+    log('🥝', '', `Kiwi sync complete!`)
 
-    return Promise.resolve();
+    return Promise.resolve()
   } catch (err) {
-    return Promise.reject(err);
+    return Promise.reject(err)
   }
-};
+}
