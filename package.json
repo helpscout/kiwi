@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@helpscout/zero": "^1.0.3",
-    "bl": "3.0.0",
+    "bl": "3.0.1",
     "np": "^4.0.2"
   }
 }
